@@ -7,10 +7,7 @@ services:
       # HOSTPORT : CONTAINERPORT
       - "5984:5984"
     volumes:
-      # Read local ./couchdb.ini, set bind_address.
-      # https://docs.couchdb.org/en/stable/config/intro.html and https://docs.couchdb.org/en/stable/config/http.html
-      #- ./couchdb.ini:/opt/couchdb/etc/local.d/docker.ini
-      - ./couchdata:/opt/couchdb/data
+      - couchdata:/opt/couchdb/data
     networks:
       - backend
     environment:
