@@ -1,0 +1,26 @@
+services:
+  couchdb:
+    container_name: couchdb-a
+    image: apache/couchdb:latest
+    restart: unless-stopped
+    ports:
+      # HOSTPORT : CONTAINERPORT
+      - "5984:5984"
+    volumes:
+      # Read local ./couchdb.ini, set bind_address.
+      # https://docs.couchdb.org/en/stable/config/intro.html and https://docs.couchdb.org/en/stable/config/http.html
+      #- ./couchdb.ini:/opt/couchdb/etc/local.d/docker.ini
+      - ./couchdata:/opt/couchdb/data
+    networks:
+      - backend
+    environment:
+      # cluster_nodes: node@host  => {"all_nodes":["couchdb@sun"], ...
+      - NODENAME=alpha
+      - COUCHDB_USER=christian
+      - COUCHDB_PASSWORD=pw
+
+volumes:
+  couchdata: {}
+
+networks:
+  backend: {}
